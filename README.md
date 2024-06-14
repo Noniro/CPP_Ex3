@@ -52,13 +52,13 @@ This game is a terminal based game. In the start of each turn the game board is 
 the player needs to input the number of the action he wants to do. 
 after rolling the dices (1) the player will get resources according to the number he rolled.
 and a menu will appear with the following options example: 
-~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
 ![Screenshot_27](https://github.com/Noniro/CPP_Ex3/assets/118755760/393d7cb9-6273-480d-b433-e1fb0030b248)
 
- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
- A sertain action can open a new menu with more options.
- to exit a menu you can press 9 or any other key or number that is not an option.
- New players can access the how_to_play menu by pressing 9 in the main menu to get help on how to play the game, the rules, costs and the objective of the game.
+
+A sertain action can open a new menu with more options.
+to exit a menu you can press 9 or any other key or number that is not an option.
+New players can access the how_to_play menu by pressing 9 in the main menu to get help on how to play the game, the rules, costs and the objective of the game.
  
 
 ### Scoring
