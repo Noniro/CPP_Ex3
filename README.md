@@ -108,9 +108,9 @@ void Catan::placeSettlement() {
 #### DCards directory 
  this directory contains all the development cards classes. each class is a different development card. the development cards are: knight, monopoly, road building, year of plenty and victory point. while the knight and victory point cards are passive cards and the other cards are active cards. The hirearchy of the development cards is as follows:
 
-                /-> Knight        /-> Monopoly
-DevelopmentCard --> PromotionCard --> YearOfPlenty 
-                \-> VictoryPoint  \-> RoadBuilding
+
+![Screenshot_28](https://github.com/Noniro/CPP_Ex3/assets/118755760/d59eb7af-a3a8-4420-b1bb-0dcb12c7e0cf)
+
 
 * DevelopmentCard is an abstract class with basic card fields and virtual methods. 
 - Knight is a class that inherits from DevelopmentCard.
