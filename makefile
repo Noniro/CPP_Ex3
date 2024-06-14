@@ -6,7 +6,7 @@ DCARDS_OBJS = ./DCards/DevelopmentCard.o ./DCards/KnightCard.o ./DCards/Monopoly
 CATAN_OBJS = Catan.o Trade.o main.o 
 
 
-VALGRIND_FLAGS = --tool=memcheck --leak-check=full --show-leak-kinds=all --error-exitcode=99
+VALGRIND_FLAGS=--tool=memcheck -v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
 
 PROG = catan
 
@@ -34,7 +34,8 @@ run: $(PROG)
 	./$(PROG)
 
 valgrind: $(PROG)
-	valgrind $(VALGRIND_FLAGS) ./$(PROG)
+	valgrind $(VALGRIND_FLAGS) ./$< 2>&1
+
 
 main.o: main.cpp
 	$(CXX) $(CXXFLAGS) -c main.cpp
@@ -46,4 +47,4 @@ DCards:
 	make -C DCards
 
 clean:
-	rm -f $(PROG) $(BOARD_OBJS) $(DCARDS_OBJS) $(CATAN_OBJS)
+	rm -f $(PROG) $(BOARD_OBJS) $(DCARDS_OBJS) $(CATAN_OBJS) tests.o test 
