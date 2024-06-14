@@ -43,35 +43,10 @@ Run the game. (in the terminal 'make' and then './catan').
 
 ### Gameplay
 This game is a terminal based game. In the start of each turn the game board is printed to show the updated board and the player will have 2 options. to roll the dices or play a development card: 
-~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-            ✖      ✖      ✖
-          /   \  /    \  /   \
-         ✖     ✖      ✖      ✖
-         | 🌲  |  ⛰️   |  🌲  |
-         ✖  5  ✖   9  ✖   3  ✖
-       /   \  /  \   /    \  /   \
-      ✖     ✖     🏚      ✖     🏚
-      | 🌾  |  🐑  |  🧱  | 🌾  |
-      ✖  11 ✖  8  ✖   5  ✖  6   ✖
-    /   \ /   \   /  \   /  \   /   \
-   ✖     ✖     ✖     ✖      ✖      ✖
-   | 🐑 |  ⛰️  | 🏜️  |  🌲  |  🐑  |
-   ✖  4 ✖  11  ✖  0  🏚  2   ✖ 10  🏚
-    \  /  \    /  \  /   \  /   \  /
-     🏚      ✖      ✖      ✖    ✖
-      | 🧱  |  🌾  |  🧱  | 🌾  |
-      ✖  3  ✖   8  🏚  4   ✖ 12 ✖
-        \  /   \  /   \   /  \  /
-         ✖      ✖      ✖      ✖
-          |  🐑 |  🌲  |  ⛰️  |
-          ✖  9  ✖   6  ✖  10  ✖
-           \   /  \   /  \   /
-             ✖     ✖      ✖
 
-Enter action: 
- 1: roll 
- 2: play_card 
-~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+![Alt text](https://prnt.sc/da7L95XwSbfh)
+
+
 the player needs to input the number of the action he wants to do. 
 after rolling the dices (1) the player will get resources according to the number he rolled.
 and a menu will appear with the following options example: 
