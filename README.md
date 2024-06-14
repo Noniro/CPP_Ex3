@@ -44,25 +44,17 @@ Run the game. (in the terminal 'make' and then './catan').
 ### Gameplay
 This game is a terminal based game. In the start of each turn the game board is printed to show the updated board and the player will have 2 options. to roll the dices or play a development card: 
 
-![Alt text](https://prnt.sc/da7L95XwSbfh)
+
+![Screenshot_26](https://github.com/Noniro/CPP_Ex3/assets/118755760/e2141d7f-46fa-4f91-9c17-5defb70ff785)
+
 
 
 the player needs to input the number of the action he wants to do. 
 after rolling the dices (1) the player will get resources according to the number he rolled.
 and a menu will appear with the following options example: 
 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-IZTIK rolled 3
-YAIR recived 1 🧱
+![Screenshot_27](https://github.com/Noniro/CPP_Ex3/assets/118755760/393d7cb9-6273-480d-b433-e1fb0030b248)
 
-Enter action:
- 1: Show_all_Cards 
- 2: place_Building 
- 3: buy_card 
- 4: play_card 
- 5: make_trade 
- 6: show_gameBoard
- 7: end_turn 
- 9: how_to_play
  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
  A sertain action can open a new menu with more options.
  to exit a menu you can press 9 or any other key or number that is not an option.
