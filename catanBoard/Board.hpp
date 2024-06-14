@@ -32,4 +32,8 @@ public:
     void printBoard();
     void placeKnight(Player* player, int tileIndex);
     vector<Resource> getVertexResource(int vertexIndex);
+    bool hasConnectedRoad(Player* player, int edgeIndex);
+    vector<shared_ptr<Vertex>> getVertices() const { return vertices; }
+    vector<shared_ptr<Edge>> getEdges() const { return edges; }
+    
 };

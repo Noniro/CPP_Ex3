@@ -1,14 +1,15 @@
 CXX = clang++-14
 CXXFLAGS = -std=c++2a -g -Wall
 
-.PHONY: all clean
+OBJS = Board.o Vertex.o
 
-all: Board.o
+all: $(OBJS)
 
 Board.o: Board.cpp Board.hpp
-	$(CXX) $(CXXFLAGS) -c Board.cpp
+    $(CXX) $(CXXFLAGS) -c Board.cpp
+
+Vertex.o: Vertex.cpp Vertex.hpp
+    $(CXX) $(CXXFLAGS) -c Vertex.cpp
 
 clean:
-	rm -f *.o
-
-
+    rm -f *.o

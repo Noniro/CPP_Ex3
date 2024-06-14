@@ -42,7 +42,7 @@ void Catan::startGame() {
 
     // Each player places a second settlement and road in reverse order
     for (int i = players.size() - 1; i >= 0; i--) {
-    currentPlayerIndex = (startingP - i + players.size()) % players.size();
+    currentPlayerIndex = (startingP + i) % players.size();
     cout<<players[currentPlayerIndex]->getName() + "turn."<<endl;
     while (true) {
         try {
@@ -172,6 +172,10 @@ Board& Catan::getBoard() {
         cout<<player.getName() + " bought a development card. ( ͡° ͜ʖ ͡°)"<<endl;
         if(card->getType() == CardType::KNIGHT){
             player.incrementKnights();
+            checkBiggestArmy();
+        }
+        if(card->getType() == CardType::VICTORY_POINT){
+            player.addPoints(1);
         }
         delete card;
     
@@ -220,11 +224,12 @@ Board& Catan::getBoard() {
     // Get the card type from the user's choice
     CardType chosenType = cardTypes[choice - 1];
     if(chosenType==CardType::KNIGHT || chosenType==CardType::VICTORY_POINT){
-        cout<<"This card is a passive card"<<endl;
+        cout<<"This card is a passive card!"<<endl;
         return false;
     }
     PromotionCard* chosenCard = dynamic_cast<PromotionCard*>(DevelopmentCard::createCard(chosenType));
     chosenCard->play(*currentPlayer, *this);
+    currentPlayer->removeDevelopmentCard(chosenType);
     delete chosenCard;
     return true;
     }
@@ -263,7 +268,16 @@ Board& Catan::getBoard() {
             return;
         }
         int vertex = getSettlementPlacementFromUser();
-        board.placeSettlement(players[currentPlayerIndex], vertex ,turnsCounter);
+        if (!board.hasConnectedRoad(players[currentPlayerIndex], vertex)) {
+        cout << "No connected road." << endl;
+        return;
+        }
+        try{
+            board.placeSettlement(players[currentPlayerIndex], vertex, turnsCounter);
+        } catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            return;
+        }
         players[currentPlayerIndex]->removeResource(Resource::Type::BRICK, 1);
         players[currentPlayerIndex]->removeResource(Resource::Type::WOOD, 1);
         players[currentPlayerIndex]->removeResource(Resource::Type::WHEAT, 1);
@@ -278,7 +292,12 @@ Board& Catan::getBoard() {
             return;
         }
         int edge = getRoadPlacementFromUser();
-        board.placeRoad(players[currentPlayerIndex], edge);
+        try{
+            board.placeRoad(players[currentPlayerIndex], edge);
+        } catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            return;
+        }
         players[currentPlayerIndex]->removeResource(Resource::Type::BRICK, 1);
         players[currentPlayerIndex]->removeResource(Resource::Type::WOOD, 1);
     }
@@ -290,7 +309,12 @@ Board& Catan::getBoard() {
             return;
         }
         int vertex = getSettlementPlacementFromUser();
-        board.placeCity(players[currentPlayerIndex], vertex);
+        try{
+            board.placeCity(players[currentPlayerIndex], vertex);
+        } catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            return;
+        }
         players[currentPlayerIndex]->removeResource(Resource::Type::ROCK, 3);
         players[currentPlayerIndex]->removeResource(Resource::Type::WHEAT, 2);
     }
@@ -366,6 +390,30 @@ Board& Catan::getBoard() {
     }
 }
 
+map<Resource, int> Catan::getRequestResources() {
+    map<Resource, int> request;
+    int resourceIndex;
+    int amount;
+    do {
+        cout << "Choose a resource to request:" << endl;
+        cout << "1. " << Resource(Resource::Type::WOOD).toEmoji() << endl;
+        cout << "2. " << Resource(Resource::Type::BRICK).toEmoji()<<endl;
+        cout << "3. " << Resource(Resource::Type::WHEAT).toEmoji()<<endl;
+        cout << "4. " << Resource(Resource::Type::SHEEP).toEmoji() << endl;
+        cout << "5. " << Resource(Resource::Type::ROCK).toEmoji()<<endl;
+        cout << "9. Done" << endl;
+
+        cin >> resourceIndex;
+
+        if (resourceIndex >= 1 && resourceIndex <= 5) {
+            cout << "Enter number of " + Resource(static_cast<Resource::Type>(resourceIndex-1)).toEmoji() << " to request." << endl;
+            cin >> amount;
+            request[Resource(static_cast<Resource::Type>(resourceIndex-1))] = amount;
+        }
+    } while (resourceIndex != 9);
+
+    return request;
+}
 
 
     void Catan::makeTrade() {
@@ -420,26 +468,7 @@ Board& Catan::getBoard() {
     }
 }
     // Get the resources the player wants to request
-    map<Resource, int> request;
-    int resourceIndex;
-    int amount;
-    do {
-        cout << "Choose a resource to request:" << endl;
-        cout << "1. " << Resource(Resource::Type::WOOD).toEmoji() << endl;
-        cout << "2. " << Resource(Resource::Type::BRICK).toEmoji()<<endl;
-        cout << "3. " << Resource(Resource::Type::WHEAT).toEmoji()<<endl;
-        cout << "4. " << Resource(Resource::Type::SHEEP).toEmoji() << endl;
-        cout << "5. " << Resource(Resource::Type::ROCK).toEmoji()<<endl;
-        cout << "9. Done" << endl;
-
-        cin >> resourceIndex;
-
-        if (resourceIndex >= 1 && resourceIndex <= 5) {
-            cout << "Enter number of " + Resource(static_cast<Resource::Type>(resourceIndex-1)).toEmoji() << " to request." << endl;
-            cin >> amount;
-            request[Resource(static_cast<Resource::Type>(resourceIndex))] = amount;
-        }
-    } while (resourceIndex != 9);
+map<Resource, int> request = getRequestResources();
 
     // Create the trade
     Trade trade(sender, receiver, offer, request);
@@ -455,6 +484,105 @@ Board& Catan::getBoard() {
     }
     trade.accept();
 }
+
+void Catan::makeCardTrade() {
+    Player* sender = players[currentPlayerIndex];
+    map<CardType, int> senderCards = sender->getDevelopmentCards();
+    if(senderCards.empty()){
+        cout<<"No development cards to trade (；′⌒`)"<<endl;
+        return;
+    }
+    //Get the player to trade with
+    int player1 = currentPlayerIndex+1%3;
+    int player2 = currentPlayerIndex+2%3;
+    cout << "Enter the player you want to trade with:\n1." << players[player1]->getName()<<"\n2."<<players[player2]->getName()<<endl; ;
+    int playerIndex;
+    cin >> playerIndex;
+    if (cin.fail()) {
+        cin.clear();  // clear the fail state
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignore the bad input
+        cout << "Invalid input." << endl;
+        return;
+    }
+    if(playerIndex != 1 && playerIndex != 2){
+        cout << "Invalid player index" << endl;
+        return;
+    }
+    if(playerIndex == 1){
+        playerIndex = player1;
+    } else {
+        playerIndex = player2;
+    }
+    Player* receiver = players[playerIndex];
+    // Get the Development cards the player wants to offer
+    map<CardType, int> offer;
+    for(const auto &pair : senderCards) {
+    int amount;
+    while (true) {
+        cout << "You ("<<sender->getName()+")"<< " have " + to_string(pair.second) +" " << cardTypeToString(pair.first)  << " to trade." << endl;
+        cout << "Enter the amount of " + cardTypeToString(pair.first) + " you want to offer:" << endl;
+        cin >> amount;
+        if (cin.fail()) {
+        cin.clear();  // clear the fail state
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // ignore the bad input
+        cout << "Invalid input. Please enter an integer." << endl;
+        continue;  // skip the rest of the loop and start the next iteration
+        }
+        if(pair.second >= amount){
+            offer[pair.first] = amount;
+            break;  // If the player has enough resources, break the loop
+        } else {
+            cout << "You don't have enough " + cardTypeToString(pair.first) << " to trade." << endl;
+            // The loop will continue, prompting the user to enter a new number
+        }
+    }
+}
+    // Get the Resources the player wants to request
+    map<Resource, int> request = getRequestResources();
+
+    //print the trade
+    cout<<"player "<<sender->getName()<<" offers player "<<receiver->getName()<<endl;
+    for(const auto &pair : offer){
+        cout<<pair.second<<" "<< cardTypeToString(pair.first) <<endl;   
+    }
+    cout<<"for"<<endl;
+    for(const auto &pair : request){
+        cout<<pair.second<<" "<<pair.first.toEmoji()<<endl;   
+    }
+    char choice;
+    while (true) {
+        cout << receiver->getName() +" do you accept the trade? (y/n)" << endl;
+        cin >> choice;
+        if (choice == 'y') {
+            break;
+        } else if (choice == 'n') {
+            cout << "Trade declined" << endl;
+            return;
+        } else {
+            cout << "Invalid input. Please enter (y/n)." << endl;
+        }
+    }
+    for (auto& [resource, amount] : request) {
+        if (receiver->getResource(resource) < amount) {
+            cout<<receiver->getName() + " dont have the requested resources"<< endl;
+            cout<<"Trade declined"<<endl;
+            return;
+        }
+    }
+    // Transfer the resources
+    for (auto& [resource, amount] : request) {
+        receiver->removeResource(resource, amount);
+        sender->addResource(resource, amount);
+    }
+    for (auto& [CardType, amount] : offer) {
+        sender->removeDevelopmentCard(CardType, amount);
+        receiver->addDevelopmentCard(CardType, amount);
+    }
+
+}
+
+    
+
 
 
     string Catan::cardTypeToString(CardType cardType) {
@@ -516,7 +644,7 @@ Board& Catan::getBoard() {
     }
 
     void Catan::gameDescription() {
-        cout << "Enter action:\n:"
+        cout << "Enter action:\n"
                 << "1: How_to_play\n"
                 << "2: Costs\n"
                 << "3: Development cards\n"

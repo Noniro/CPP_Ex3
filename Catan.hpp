@@ -73,4 +73,6 @@ class Catan {
     void makeTrade();
     void showCards();
     string cardTypeToString(CardType cardType);
+    void makeCardTrade();
+    map<Resource, int> getRequestResources();
 };

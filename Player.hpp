@@ -30,7 +30,7 @@
         int getPoints() const { return points; }
         void addResource(const Resource &resource, int amount) {
             resources[resource] += amount;
-            cout<<colorToANSICode() <<name<< "\033[0m"<<"Recived "<< amount<<" "<<resource.toEmoji()<<endl;
+            cout<<colorToANSICode() <<name<< "\033[0m"<<" recived "<< amount<<" "<<resource.toEmoji()<<endl;
         }
         void addResources(const std::vector<Resource> &resources) {
             for (const auto &resource : resources) {
@@ -54,6 +54,11 @@
         }
         void addDevelopmentCard(DevelopmentCard *card) {
             developmentCards[card->getType()]++;
+            
+        }
+        void addDevelopmentCard(CardType type, int amount) {
+            developmentCards[type] += amount;
+            cout<<getName()<<" recived "<<amount<<" Development cards "<<endl;
         }
          
         void addPoints(int p) { points += p; }
@@ -66,6 +71,13 @@
             }
             return total;
         }
+        void removeDevelopmentCard(CardType type) {
+            developmentCards[type]--;
+        }
+        void removeDevelopmentCard(CardType type, int amount) {
+            developmentCards[type] -= amount;
+        }
+
         std::string colorToANSICode() const {
         switch (color) {
             case PlayerColor::RED:

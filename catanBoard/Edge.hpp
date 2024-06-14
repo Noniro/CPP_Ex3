@@ -19,5 +19,8 @@ class Edge{
             return owner->colorToANSICode();
         }
     }
+    Player* getOwner() const {
+        return owner;
+    }
     ~Edge() {}
 };

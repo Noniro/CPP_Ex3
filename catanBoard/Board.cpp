@@ -15,16 +15,13 @@ Board::Board() {
 void Board::initialize() {
     vector<shared_ptr<Tile>> allTiles = { //defalut tiles setup
         make_shared<WoodTile>(5), make_shared<RockTile>(9) , make_shared<WoodTile>(3),
-        make_shared<WheatTile>(11),make_shared<SheepTile>(8) , make_shared<WheatTile>(5), make_shared<WheatTile>(6),
+        make_shared<WheatTile>(11),make_shared<SheepTile>(8) , make_shared<BrickTile>(5), make_shared<WheatTile>(6),
          make_shared<SheepTile>(4), make_shared<RockTile>(11), make_shared<DesertTile>() ,make_shared<WoodTile>(2) , make_shared<SheepTile>(10),
-        make_shared<BrickTile>(3), make_shared<BrickTile>(8), make_shared<BrickTile>(4),make_shared<WheatTile>(12),
+        make_shared<BrickTile>(3), make_shared<WheatTile>(8), make_shared<BrickTile>(4),make_shared<WheatTile>(12),
         make_shared<SheepTile>(9),make_shared<WoodTile>(6), make_shared<RockTile>(10),
          
     };
 
-    // random_device rd; // make this a shuffle function
-    // mt19937 g(rd());
-    // shuffle(allTiles.begin(), allTiles.end(), g);
 
     tiles = allTiles;
 
@@ -308,31 +305,31 @@ v53->tiles.assign({tiles[18]});
 
 void Board::printBoard() {
 
-    cout << "          " << vertices[0]->emoji<< "     " << vertices[1]->emoji << "      " << vertices[2]->emoji << "\n"
-         << "         " << edges[0]->getColor() << "/   " << edges[1]->getColor() << "\\  " << edges[2]->getColor() << "/   " << edges[3]->getColor() << "\\   " << edges[4]->getColor() << "/   " << edges[5]->getColor() << "\\\033[0m\n"
-         << "        " << vertices[3]->emoji << "    " << vertices[4]->emoji << "     " << vertices[5]->emoji << "     " << vertices[6]->emoji << "\n"
+    cout << "            " << vertices[0]->emoji<< "      " << vertices[1]->emoji << "      " << vertices[2]->emoji << "\n"
+         << "          " << edges[0]->getColor() << "/   " << edges[1]->getColor() << "\\  " << edges[2]->getColor() << "/   " << edges[3]->getColor() << "\\  " << edges[4]->getColor() << "/   " << edges[5]->getColor() << "\\\033[0m\n"
+         << "         " << vertices[3]->emoji << "     " << vertices[4]->emoji << "      " << vertices[5]->emoji << "      " << vertices[6]->emoji << "\n"
          << "         " << edges[6]->getColor() << "| " << tiles[0]->resourceEmoji << edges[7]->getColor() << "  |" << "  " << tiles[1]->resourceEmoji << edges[8]->getColor() << "   |  " << tiles[2]->resourceEmoji << "  " << edges[9]->getColor() << "|\033[0m\n"
-         << "        " << vertices[7]->emoji << "  " <<tiles[0]->number <<  " " << vertices[8]->emoji << "  " <<tiles[1]->number<<  "  " << vertices[9]->emoji << "   " <<tiles[2]->number<<  "  " << vertices[10]->emoji << "\n"
+         << "         " << vertices[7]->emoji << "  " <<tiles[0]->number <<  "  " << vertices[8]->emoji << "   " <<tiles[1]->number<<  "   " << vertices[9]->emoji << "  " <<tiles[2]->number<<  "  " << vertices[10]->emoji << "\n"
          << "       " << edges[10]->getColor() << "/   " << edges[11]->getColor() << "\\ " << edges[12]->getColor() << "/   " << edges[13]->getColor() << "\\   " << edges[14]->getColor() << "/   " << edges[15]->getColor() << "\\  " << edges[16]->getColor() << "/   " << edges[17]->getColor() << "\\\033[0m\n"
-         << "     " << vertices[11]->emoji << "     " << vertices[12]->emoji << "     " << vertices[13]->emoji << "     " << vertices[14]->emoji << "     " << vertices[15]->emoji << "\n"
+         << "      " << vertices[11]->emoji << "     " << vertices[12]->emoji << "     " << vertices[13]->emoji << "       " << vertices[14]->emoji << "     " << vertices[15]->emoji << "\n"
          << "      " << edges[18]->getColor() << "| " << tiles[3]->resourceEmoji << edges[19]->getColor() << "  |  " << tiles[4]->resourceEmoji << edges[20]->getColor() << "  |  " << tiles[5]->resourceEmoji << edges[21]->getColor() << "  |  " << tiles[6]->resourceEmoji << "  " << edges[22]->getColor() << "|\033[0m\n"
-         << "     " << vertices[16]->emoji << " " <<tiles[3]->number<< " " << vertices[17]->emoji << "  " <<tiles[4]->number<< "  " << vertices[18]->emoji << "  " <<tiles[5]->number<< "  " << vertices[19]->emoji << "  " <<tiles[6]->number<< "  " << vertices[20]->emoji << "\n"
+         << "      " << vertices[16]->emoji << "  " <<tiles[3]->number<< " " << vertices[17]->emoji << "  " <<tiles[4]->number<< "  " << vertices[18]->emoji << "  " <<tiles[5]->number<< "    " << vertices[19]->emoji << "  " <<tiles[6]->number<< "   " << vertices[20]->emoji << "\n"
          << "    " << edges[23]->getColor() << "/   " << edges[24]->getColor() << "\\ " << edges[25]->getColor() << "/   " << edges[26]->getColor() << "\\   " << edges[27]->getColor() << "/   " << edges[28]->getColor() << "\\ " << edges[29]->getColor() << "/   " << edges[30]->getColor() << "\\  " << edges[31]->getColor() << "/   " << edges[32]->getColor() << "\\\033[0m\n"
-         << "  " << vertices[21]->emoji << "    " << vertices[22]->emoji << "     " << vertices[23]->emoji << "     " << vertices[24]->emoji << "     " << vertices[25]->emoji << "    " << vertices[26]->emoji << "\n"
-         << "   " << edges[33]->getColor() << "| " << tiles[7]->resourceEmoji << edges[34]->getColor() << "  |  " << tiles[8]->resourceEmoji << edges[35]->getColor() << "   |  " << tiles[9]->resourceEmoji << edges[36]->getColor() << "   | " << tiles[10]->resourceEmoji << edges[37]->getColor() << "  |  " <<tiles[11]->resourceEmoji << " " << edges[38]->getColor() << "|\033[0m\n"
-         << "  " << vertices[27]->emoji << "  " <<tiles[7]->number<<  " " << vertices[28]->emoji << "  " <<tiles[8]->number<< "  " << vertices[29]->emoji << "  " <<tiles[9]->number<< " " << vertices[30]->emoji << "  " <<tiles[10]->number<< "  " << vertices[31]->emoji << " " <<tiles[11]->number<< " " << vertices[32]->emoji << "\n"
-         << "    " << edges[38]->getColor() << "\\   " << edges[40]->getColor() << "/ " << edges[41]->getColor() << "\\    " << edges[42]->getColor() << "/   " << edges[43]->getColor() << "\\ " << edges[44]->getColor() << "/   " << edges[45]->getColor() << "\\ " << edges[46]->getColor() << "/   " << edges[47]->getColor() << "\\  " << edges[48]->getColor() << "/\033[0m\n"
-         << "     " << vertices[33]->emoji << "    " << vertices[34]->emoji << "     " << vertices[35]->emoji << "     " << vertices[36]->emoji << "     " << vertices[37]->emoji << "\n"
-         << "      " << edges[49]->getColor() << "| " << tiles[12]->resourceEmoji << edges[50]->getColor() << "  |  " << tiles[13]->resourceEmoji << edges[51]->getColor() << "  |  " << tiles[14]->resourceEmoji << edges[52]->getColor() << "  |  " << tiles[15]->resourceEmoji << edges[53]->getColor() << "  |\033[0m\n"
-         << "     " << vertices[38]->emoji << "  " <<tiles[12]->number<< " " << vertices[39]->emoji << "  "  <<tiles[13]->number<< "  " << vertices[40]->emoji << "  "  <<tiles[14]->number<< "  " << vertices[41]->emoji << "  " <<tiles[15]->number<< " " << vertices[42]->emoji << "\n"
-         << "        " << edges[54]->getColor() << "\\   " << edges[55]->getColor() << "/  " << edges[56]->getColor() << "\\   " << edges[57]->getColor() << "/  " << edges[58]->getColor() << "\\   " << edges[59]->getColor() << "/  " << edges[60]->getColor() << "\\  " << edges[61]->getColor() << "/\033[0m\n"
-         << "         " << vertices[43]->emoji << "     " << vertices[44]->emoji << "     " << vertices[45]->emoji << "     " << vertices[46]->emoji << "\n"
-         << "          " << edges[62]->getColor() << "|  " << tiles[16]->resourceEmoji << edges[63]->getColor() << "  |  " << tiles[17]->resourceEmoji << edges[64]->getColor() << "  | " << tiles[18]->resourceEmoji << edges[65]->getColor() << "   |\033[0m\n"
-         << "         " << vertices[47]->emoji << "  "  <<tiles[16]->number<< "  " << vertices[48]->emoji << "  " <<tiles[17]->number<< "  " << vertices[49]->emoji << " " <<tiles[18]->number<< " " << vertices[50]->emoji << "\n"
+         << "   " << vertices[21]->emoji << "     " << vertices[22]->emoji << "      " << vertices[23]->emoji << "      " << vertices[24]->emoji << "      " << vertices[25]->emoji << "     " << vertices[26]->emoji << "\n"
+         << "   " << edges[33]->getColor() << "| " << tiles[7]->resourceEmoji << edges[34]->getColor() << "  |  " << tiles[8]->resourceEmoji << edges[35]->getColor() << "   |  " << tiles[9]->resourceEmoji << edges[36]->getColor() << "   | " << tiles[10]->resourceEmoji << edges[37]->getColor() << "  |  " <<tiles[11]->resourceEmoji << "  " << edges[38]->getColor() << "|\033[0m\n"
+         << "   " << vertices[27]->emoji << "  " <<tiles[7]->number<<  "  " << vertices[28]->emoji << "  " <<tiles[8]->number<< "   " << vertices[29]->emoji << "  " <<tiles[9]->number<< "  " << vertices[30]->emoji << "  " <<tiles[10]->number<< "  " << vertices[31]->emoji << "  " <<tiles[11]->number<< "  " << vertices[32]->emoji << "\n"
+         << "    " << edges[38]->getColor() << "\\  " << edges[40]->getColor() << "/  " << edges[41]->getColor() << "\\    " << edges[42]->getColor() << "/  " << edges[43]->getColor() << "\\  " << edges[44]->getColor() << "/   " << edges[45]->getColor() << "\\  " << edges[46]->getColor() << "/   " << edges[47]->getColor() << "\\  " << edges[48]->getColor() << "/\033[0m\n"
+         << "     " << vertices[33]->emoji << "      " << vertices[34]->emoji << "      " << vertices[35]->emoji << "      " << vertices[36]->emoji << "       " << vertices[37]->emoji << "\n"
+         << "      " << edges[49]->getColor() << "| " << tiles[12]->resourceEmoji << edges[50]->getColor() << "  |  " << tiles[13]->resourceEmoji << edges[51]->getColor() << "  |  " << tiles[14]->resourceEmoji << edges[52]->getColor() << "  |  " << tiles[15]->resourceEmoji << edges[53]->getColor() << "   |\033[0m\n"
+         << "      " << vertices[38]->emoji << "  " <<tiles[12]->number<< "  " << vertices[39]->emoji << "   "  <<tiles[13]->number<< "  " << vertices[40]->emoji << "  "  <<tiles[14]->number<< "   " << vertices[41]->emoji << "   " <<tiles[15]->number<< "  " << vertices[42]->emoji << "\n"
+         << "        " << edges[54]->getColor() << "\\  " << edges[55]->getColor() << "/   " << edges[56]->getColor() << "\\  " << edges[57]->getColor() << "/   " << edges[58]->getColor() << "\\  " << edges[59]->getColor() << "/  " << edges[60]->getColor() << "\\    " << edges[61]->getColor() << "/\033[0m\n"
+         << "         " << vertices[43]->emoji << "      " << vertices[44]->emoji << "      " << vertices[45]->emoji << "       " << vertices[46]->emoji << "\n"
+         << "          " << edges[62]->getColor() << "|  " << tiles[16]->resourceEmoji << edges[63]->getColor() << " |  " << tiles[17]->resourceEmoji << edges[64]->getColor() << "  |  " << tiles[18]->resourceEmoji << edges[65]->getColor() << "    |\033[0m\n"
+         << "          " << vertices[47]->emoji << "  "  <<tiles[16]->number<< "  " << vertices[48]->emoji << "   " <<tiles[17]->number<< "  " << vertices[49]->emoji << "  " <<tiles[18]->number<< "  " << vertices[50]->emoji << "\n"
          << "           " << edges[66]->getColor() << "\\   " << edges[67]->getColor() << "/  " << edges[68]->getColor() << "\\   " << edges[69]->getColor() << "/  " << edges[70]->getColor() << "\\   " << edges[71]->getColor() << "/\033[0m\n"
-         << "            " << vertices[51]->emoji << "     " << vertices[52]->emoji << "     " << vertices[53]->emoji<<"\n";
+         << "             " << vertices[51]->emoji << "      " << vertices[52]->emoji << "      " << vertices[53]->emoji<<"\n"
+         << "     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 }
-
 
 // vector<Resource> Board::getVertexResource(int v){
 //     vector<Resource> resources;
@@ -344,58 +341,58 @@ void Board::printBoard() {
 
 void Board::placeSettlement(Player* player, int vertexIndex, int turnCounter) {
     if (vertexIndex < 0 || vertexIndex >= vertices.size()) {
-        cout<<"Invalid vertex index"<<endl;
-        return;
+        throw std::invalid_argument("Invalid vertex index");
     }
     auto &vertex = vertices[vertexIndex];
     if (vertex->owner != nullptr) {
-        cout<<"Vertex already occupied"<<endl;
-        return;
+        throw std::invalid_argument("Vertex already occupied");
     }
     
     // Check that settlements are at least two edges apart
     for (auto &edge : vertex->edges) {
         for (auto &neighbourVertex : edge->vertices) {
             if (neighbourVertex != vertex && neighbourVertex->owner != nullptr) {
-                cout<<"Too close to another settlement"<<endl;
-                return;
+                throw std::invalid_argument("Settlements must be at least two edges apart");
             }
         }
     }
-    if(turnCounter>0){
-    // Check for at least one connected road
-    bool hasConnectedRoad = false;
-    for (auto &edge : vertex->edges) {
-        if (edge->owner == player) {
-            hasConnectedRoad = true;
-            break;
-        }
-    }
-    if (!hasConnectedRoad) {
-        cout<<"No connected road"<<endl;
-        return;
-    }
+
+    if(turnCounter>0 && !hasConnectedRoad(player, vertexIndex)) {
+        throw std::invalid_argument("No connected road");
     }
 
     vertex->owner = player;
     vertex->type = Building::SETTLEMENT;
-    vertex->emoji = "🏠";
+    vertex->emoji =player->colorToANSICode() + "🏚" + "\033[0m";
     printBoard();
 }
 
 void Board::placeRoad(Player* player, int edgeIndex) {
     if (edgeIndex < 0 || edgeIndex >= edges.size()) {
-        cout<<"Invalid edge index"<<endl;
-        return;
+        throw std::invalid_argument("Invalid edge index");
     }
     auto &edge = edges[edgeIndex];
     if (edge->owner != nullptr) {
-        cout<<"Edge already occupied"<<endl;
-        return;
+        throw std::invalid_argument("Edge already occupied");
     }
-    if(edge->vertices[0]->owner != player && edge->vertices[1]->owner != player){
-        cout<<"No adjacent settlement owned by player"<<endl;
-        return;
+    bool isConnected = false;
+    for (auto &vertex : edge->vertices) {
+        if (vertex->owner == player) {
+            isConnected = true;
+            break;
+        }
+        for (auto &connectedEdge : vertex->edges) {
+            if (connectedEdge->owner == player) {
+                isConnected = true;
+                break;
+            }
+        }
+        if (isConnected) {
+            break;
+        }
+    }
+    if (!isConnected) {
+        throw std::invalid_argument("No connected road or settlement/city");
     }
     edge->owner = player;
     printBoard();
@@ -403,17 +400,30 @@ void Board::placeRoad(Player* player, int edgeIndex) {
 
 void Board::placeCity(Player* player, int vertexIndex) {
     if (vertexIndex < 0 || vertexIndex >= vertices.size()) {
-        cout<<"Invalid vertex index"<<endl;
-        return;
+        throw std::invalid_argument("Invalid vertex index");
     }
     auto &vertex = vertices[vertexIndex];
     if (vertex->owner != player || vertex->type != Building::SETTLEMENT) {
-        cout<<"Invalid vertex"<<endl;
-        return;
+        throw std::invalid_argument("No settlement at this vertex");
     }
     vertex->type = Building::CITY;
-    vertex->emoji = "🏰";
+    vertex->emoji = player->colorToANSICode() + "🏙" + "\033[0m";
     printBoard();
+}
+
+bool Board::hasConnectedRoad(Player* player, int vertexIndex) {
+    if (vertexIndex < 0 || vertexIndex >= vertices.size()) {
+        throw std::invalid_argument("Invalid vertex index");
+    }
+    auto &vertex = vertices[vertexIndex];
+
+    // Check if the player has a connected road
+    for (auto &connectedEdge : vertex->edges) {
+        if (connectedEdge->owner == player) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void Board::placeKnight(Player* player, int tileIndex) {
