@@ -59,7 +59,14 @@ and a menu will appear with the following options example:
 A sertain action can open a new menu with more options.
 to exit a menu you can press 9 or any other key or number that is not an option.
 New players can access the how_to_play menu by pressing 9 in the main menu to get help on how to play the game, the rules, costs and the objective of the game.
- 
+
+To place a building the users will need to use this map of locations i built that is coresponding to the game board that is printing in the terminal, the map-
+
+
+ ![WhatsApp Image 2024-06-16 at 12 16 14_689afba3](https://github.com/Noniro/CPP_Ex3/assets/118755760/712c2991-ca47-4bb7-940e-a6882d48b373)
+
+ Example- to place a settelment you in the first vertex (0 - written in blue)  choose in terminal action 2 - place a building. then 2 again to place a settlemnt, then type 0 to place the settelment at index 0.
+
 
 ### Scoring
 The game ends when a player reaches 10 points. Points are earned by building settlements, cities, and roads, and by having the largest army.
