@@ -17,7 +17,7 @@ int main() {
 
     // Start the game
 // game.startGame();  // uncomment this line for the starting game iteration.
-
+//~~~~~~~~~~~~~~~~~~~~~GAME-PREVEIW-SECTION~~~~~~~~~~~~~~~~~~~~~~~//
 p1.addResource(Resource::Type::BRICK, 5);
 p1.addResource(Resource::Type::ROCK, 5);
 p1.addResource(Resource::Type::WHEAT, 5);
@@ -49,6 +49,9 @@ game.getBoard().placeSettlement(&p2, 32, 0);
 game.getBoard().placeRoad(&p2, 48);
 game.getBoard().placeSettlement(&p1, 40, 0);
 game.getBoard().placeRoad(&p1, 58);
+
+cout<<"THIS IS A GAME PREVIEW!"<<endl;
+//~~~~~~~~~~~~~~~~~~END-PREVEIW~~~~~~~~~~~~~~~~~~~~~~~~~~// 
 
 Player* winner = nullptr;
 // Main game loop

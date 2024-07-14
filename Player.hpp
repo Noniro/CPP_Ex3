@@ -16,15 +16,18 @@
     private:
         string name;
         PlayerColor color;
-        int points;
-        int knights;
+        int points = 0;
+        int knights = 0;
         map<Resource, int> resources;
         map<CardType, int> developmentCards;
 
     public:
         Player(const string &name, PlayerColor color) : name(name), color(color), points(0) {} // Initialize the player with 0 points
         int getKnightsNum(){ return knights;}
-        void incrementKnights(){knights++;}
+        void incrementKnights() {
+        knights++;
+        cout << getName() << " now has " << knights << " knights." << endl;
+        }
         map <CardType, int> getDevelopmentCards(){return developmentCards;}
         string getName() const { return colorToANSICode() + name + "\033[0m"; }
         int getPoints() const { return points; }

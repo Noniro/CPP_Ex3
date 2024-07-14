@@ -338,6 +338,7 @@ Board& Catan::getBoard() {
    void Catan::showCards() {
     cout << "1. Show resources" << endl;
     cout << "2. Show development cards" << endl;
+    cout << "3. Show points" << endl;
     int choice;
     cin >> choice;
 
@@ -385,7 +386,9 @@ Board& Catan::getBoard() {
         CardType cardType = cardTypes[cardNumber - 1];
         DevelopmentCard* card = DevelopmentCard::createCard(cardType);
         card->description();
-    } else {
+    } else if(choice == 3){
+        cout << "You" << players[currentPlayerIndex]->getName() << " have " << players[currentPlayerIndex]->getPoints() << " points." << endl;
+    }else{
         cout << "Invalid choice" << endl;
     }
 }
@@ -612,25 +615,29 @@ void Catan::makeCardTrade() {
         return nullptr;
     }
 
-     void Catan::checkBiggestArmy() {
-        Player* bigPPArmy = nullptr;
-        int knightsNum = 3;
-        for(int i = 0; i < players.size(); i++) {
-            if(players[i]->getKnightsNum() > knightsNum) {
-                bigPPArmy = players[i];
-                knightsNum = players[i]->getKnightsNum();
-            }
-        }
-        if (playerWithBiggestArmy != bigPPArmy) {
-            if (playerWithBiggestArmy != nullptr) {
-                playerWithBiggestArmy->decreacePoints(2);
-            }
-            if (bigPPArmy != nullptr) {
-                bigPPArmy->addPoints(2);
-            }
-            playerWithBiggestArmy = bigPPArmy;
+void Catan::checkBiggestArmy() {
+    cout << "Checking for biggest army." << endl;
+    Player* newBiggestArmyPlayer = nullptr;
+    int maxKnights = 0; 
+    for (int i = 0; i < players.size(); i++) {
+        int playerKnights = players[i]->getKnightsNum();
+        cout << players[i]->getName() << " has " << playerKnights << " knights." << endl;
+        if (playerKnights >= 3 && playerKnights > maxKnights) {
+            maxKnights = playerKnights;
+            newBiggestArmyPlayer = players[i];
         }
     }
+    if (newBiggestArmyPlayer != nullptr && newBiggestArmyPlayer != playerWithBiggestArmy) {
+        cout << newBiggestArmyPlayer->getName() << " has the biggest army." << endl;
+        cout << newBiggestArmyPlayer->getName() << " have " << newBiggestArmyPlayer->getKnightsNum() << " knights." << endl;
+        if (playerWithBiggestArmy != nullptr) {
+            playerWithBiggestArmy->addPoints(-2);
+        }
+        newBiggestArmyPlayer->addPoints(2);
+        playerWithBiggestArmy = newBiggestArmyPlayer;
+    }
+}
+
 
     void Catan::endTurn() {
         if(players[currentPlayerIndex]->getPoints() >= 10){
