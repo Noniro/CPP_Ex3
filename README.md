@@ -24,12 +24,6 @@ this is a terminal based game. the game is a simplefied version of the popular b
 
 
 
-## Author
-Name: [Your Name]  
-Email: [Your Email]  
-GitHub: [Your GitHub Profile Link]
-
-
 ## Game Rules
 The game makes the player choose 2 settelments and roads to place on the board. the player can only place the settelments on the corners of the tiles where the X's are marked and roads on the edges of the tiles. settelments cannot be placed freely and next to each other meaning at least two roads are seperating betwin them. And roads like settelments cannot be placed freely and must be connected to the settelments or another road. In each turn the player must first roll the dices or play a development card. If the player chose to play first a development card the turn will end for him when he plays the card. If the player chose to roll the dices he will get resources according to the number he rolled. the player then can build roads, settelments or cities, buy development cards or trade with the other players resources and development cards. the player can also play a development card if he has one.
 
