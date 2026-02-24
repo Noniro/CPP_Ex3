@@ -11,7 +11,6 @@ github: [https://github.com/Noniro}
 this is a terminal based game. the game is a simplefied version of the popular board game Catan. the game is played by 3 players. on an 19 tiles board like the original game. in this version the gameplay is exactly the same except for knights, robber and the ports and will be explained in the game rules section. each player has a color and a name. During the game the players will be able to build settlements, cities and roads. the game ends when a player reaches 10 points. 
 
 ## Table of Contents
-- [Author](#author)
 - [Overview](#overview)
 - [Game Rules](#game-rules)
 - [setup](#setup)
