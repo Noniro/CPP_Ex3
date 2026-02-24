@@ -4,7 +4,6 @@ A terminal-based version of the popular board game Catan.
 
 ## Author
 name: [Yuval Vogdan]
-email: [yuvalv126@gmail.com]
 github: [https://github.com/Noniro}
 
 ## Overview
